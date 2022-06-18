@@ -1,65 +1,37 @@
-.cssload-container {
-  position: fixed;
-  width: 100%;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-color: rgba(81, 108, 216, 0.7);
-  z-index: 9999;
-}
-
-.cssload-speeding-wheel {
-  content: "";
-  display: block;
+:host {
   position: absolute;
-  left: 48%;
-  top: 40%;
-  width: 63px;
-  height: 63px;
-  margin: 0 auto;
-  border: 4px solid rgb(0, 0, 0);
-  border-radius: 50%;
-  border-left-color: transparent;
-  border-right-color: transparent;
-  animation: cssload-spin 500ms infinite linear;
-  -o-animation: cssload-spin 500ms infinite linear;
-  -ms-animation: cssload-spin 500ms infinite linear;
-  -webkit-animation: cssload-spin 500ms infinite linear;
-  -moz-animation: cssload-spin 500ms infinite linear;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
-
-@keyframes cssload-spin {
-  100% {
-    transform: rotate(360deg);
-    transform: rotate(360deg);
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0066CC;
+  svg{
+    max-width: 75%;
+    max-height: 75%;
+    #part-1 {
+      opacity: 0;
+      animation: appear 2.5s 0.3s ease-in-out infinite;
+    }
+    #part-2 {
+      opacity: 0;
+      animation: appear 2.5s 0.6s ease-in-out infinite;
+    }
+    #part-3 {
+      opacity: 0;
+      animation: appear 2.5s 0.9s ease-in-out infinite;
+    }
   }
-}
 
-@-o-keyframes cssload-spin {
-  100% {
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-@-ms-keyframes cssload-spin {
-  100% {
-    -ms-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-@-webkit-keyframes cssload-spin {
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-@-moz-keyframes cssload-spin {
-  100% {
-    -moz-transform: rotate(360deg);
-    transform: rotate(360deg);
+  @keyframes appear {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
   }
 }

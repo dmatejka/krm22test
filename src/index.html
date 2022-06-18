@@ -2,12 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Krm22</title>
+  <title>KRM22</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" id="favicon" type="image/x-icon" href="favicon.svg">
+  <link rel="manifest" id="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1976d2">
+  <script>
+    const usesDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches || false;
+    const favicon = document.getElementById('favicon');
+
+    function switchIcon(usesDarkMode) {
+      if (usesDarkMode) {
+        favicon.href = 'favicon-dark.svg';
+      } else {
+        favicon.href = 'favicon.svg';
+      }
+    }
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener( "change", (e) => switchIcon(e.matches));
+    switchIcon(usesDarkMode);
+  </script>
 </head>
 <body>
   <krm-root></krm-root>
