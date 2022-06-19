@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { User } from 'src/app/core/models/User';
+import { User } from 'src/app/users/models/User';
 
 @Component({
   selector: 'krm-user-tile',

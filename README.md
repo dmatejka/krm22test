@@ -13,4 +13,7 @@ ng serve
 Swtching light/dark mode switches favicon
 // TODO implement application light/dark mode
 
+### Token
+//TODO implement token lifecycle (validTo, refresh)
+
 
