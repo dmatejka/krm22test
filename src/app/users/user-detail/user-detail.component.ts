@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Location } from "@angular/common";
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription, throwError } from 'rxjs';
 import { tap, switchMap, catchError, map } from 'rxjs/operators';
@@ -20,6 +21,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
 
   constructor(
+    private location: Location,
     private usersService: UsersService,
     private route: ActivatedRoute,
     private router: Router,
@@ -45,6 +47,11 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     if(this.userSub) this.userSub.unsubscribe();
+  }
+
+
+  goBack(): void {
+    this.location.back();
   }
 
 }

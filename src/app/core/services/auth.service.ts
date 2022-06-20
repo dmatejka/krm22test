@@ -26,7 +26,7 @@ export class AuthService {
 
   logout() {
     this.tokenService.deleteToken();
-    this.router.navigate(['/',])
+    this.router.navigate(['/','login'])
   }
 
   login(email:string, password: string): Observable<string> {
