@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Pagination } from '../core/models/ListPage';
@@ -10,18 +10,22 @@ import { ApiStatus, UsersService } from './services/users.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent implements OnInit {
-  public users$: Observable<User[]>;
-  public page$: Observable<Pagination>;
-  public listStatus$: Observable<ApiStatus>;
+export class UsersComponent implements AfterViewInit {
+  public users$!: Observable<User[]>;
+  public page$!: Observable<Pagination>;
+  public listStatus!: ApiStatus;
+  // public listStatus$!: Observable<ApiStatus>;
 
   constructor(protected usersService: UsersService) {
-    this.users$ = this.usersService.getPage(1, 7).pipe(map(ul => ul.list ));
-    this.page$ = this.usersService.getPage(1, 7).pipe(tap(page => console.log({page})),map(ul => ul.page ));
-    this.listStatus$ = this.usersService.listStatus$;
+    this.usersService.listStatus$.pipe(tap(status => console.log({status}))).subscribe(status => this.listStatus = status);
   }
 
-  ngOnInit(): void {
+  ngOnInit(){
+    const usersList$ = this.usersService.getPage(1, 7);
+    this.users$ = usersList$.pipe(map(ul => ul.list ));
+    this.page$ = usersList$.pipe(tap(page => console.log({page})),map(ul => ul.page ));
+  }
+  ngAfterViewInit(): void {
 
   }
 }

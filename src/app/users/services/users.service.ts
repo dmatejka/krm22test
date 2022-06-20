@@ -28,7 +28,6 @@ export class UsersService {
     private userResponseAdapter: UserResponseAdapter,
   ) {
     this.listStatus$ = this._listStatus$.asObservable();
-    // this.userStatus$ = this._userStatus$.pipe(shareReplay(1));
     this.userStatus$ = this._userStatus$.asObservable();
   }
 

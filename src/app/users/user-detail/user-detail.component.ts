@@ -26,22 +26,19 @@ export class UserDetailComponent implements OnInit {
 
     this.user$ = this.route.paramMap.pipe(
       map(params => this.id = Number(params.get('id'))),
-      switchMap( id => this.usersService.getUser(this.id)),
+      switchMap( id => this.usersService.getUser(id)),
       catchError((err) => {
             console.error({err});
-            this.router.navigate(['/pageNotFound']) ;
+            this.router.navigate(['/pageNotFound']);
             return throwError(() => new Error(err))
           } )
       );
-  // this.userStatus$ = this.usersService.userStatus$.pipe(tap(data => console.log('user status: ', data))).subscribe(status => this.status = status);
+  // this.userStatus$ = this.usersService.userStatus$.pipe(tap(data => console.log('user status: ', data)));
   this.usersService.userStatus$.pipe(tap(data => console.log('user status: ', data))).subscribe(status => this.status = status);
-
 
     }
 
-    ngAfterViewInit(): void {
 
-  }
   ngOnInit(): void {
   }
 
