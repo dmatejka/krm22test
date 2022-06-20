@@ -7,6 +7,8 @@ import { User } from 'src/app/users/models/User';
 import { UserResponseAdapter } from '../models/UserResponse';
 import { UserListResponseAdapter } from '../models/UsersResponse';
 
+const baseUrl = "https://reqres.in/api/users";
+
 export const enum ApiStatus {
   loading = 'loading',
   error = 'error',
@@ -15,7 +17,6 @@ export const enum ApiStatus {
 
 @Injectable()
 export class UsersService {
-  private baseUrl = "https://reqres.in/api/users";
   public listStatus$: Observable<ApiStatus>;
   public userStatus$: Observable<ApiStatus>;
 
@@ -36,8 +37,9 @@ export class UsersService {
   // }
 
   public getPage(page: number,per_page: number = 8): Observable<ListPage<User>> {
-    const url = this.baseUrl;
+    const url = baseUrl;
     const params = new HttpParams().set('delay', '3').set('page', page.toString()).set('per_page', per_page.toString());
+
     this._listStatus$.next(ApiStatus.loading);
 
     return this.http.get(url, {params}).pipe(
@@ -52,8 +54,11 @@ export class UsersService {
     );
   }
   public getUser(id: number): Observable<User> {
-    const url = `${this.baseUrl}/${id}`;
+    if(!id) return throwError(() => new Error('User id is required!'));
+
+    const url = `${baseUrl}/${id}`;
     const params = new HttpParams().set('delay', '3');
+
     this._userStatus$.next(ApiStatus.loading);
 
     return this.http.get(url,{params}).pipe(

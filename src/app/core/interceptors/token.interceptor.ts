@@ -19,11 +19,12 @@ export class AuthInterceptor implements HttpInterceptor {
 
   addAuthToken(request: HttpRequest<any>) {
     const token = this.tokenService.getToken();
-    console.log('add interecptor token: ', token)
 
     if (!token) {
       return request;
     }
+
+    console.info('add interecptor token: ', token)
     return request.clone({
       setHeaders: {
         'x-access-token': token

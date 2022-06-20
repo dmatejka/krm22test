@@ -1,0 +1,33 @@
+<h2 class="text-center">Login</h2>
+<a id="registration" class="nav-link" [routerLink]="['/register']" (click)="signup()">Need account? Register.</a>
+
+<div class="container">
+
+  <form id="login" [formGroup]="loginForm" (keyup.enter)="submit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" name="username" type="text">
+      <mat-icon matSuffix>alternate_email</mat-icon>
+      <mat-error *ngIf="emailCtr.dirty && emailCtr.hasError('required')">
+        Email is required
+      </mat-error>
+      <mat-error *ngIf="emailCtr.dirty && emailCtr.hasError('pattern')">
+        Please enter VALID email address
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" name="password" type="password" maxlength="100">
+      <mat-icon matSuffix>lock</mat-icon>
+      <mat-error *ngIf="passwordCtr.dirty && passwordCtr.hasError('required')">
+        Password is required
+      </mat-error>
+      <mat-error *ngIf="passwordCtr.dirty && passwordCtr.hasError('minlength')">
+        Password should be longer then 5 characters.
+      </mat-error>
+    </mat-form-field>
+  </form>
+  <a id="forgotPassword" class="nav-link" [routerLink]="['/resendpassword']" >Forgot your password?</a>
+  <button mat-raised-button color="primary" type="submit" (click)="submit()">{{'account_login_button'}}</button>
+</div>
+

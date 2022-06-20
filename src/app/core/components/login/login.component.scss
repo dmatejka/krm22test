@@ -1,0 +1,21 @@
+.container {
+  background-color: rgba(238, 251, 255, 0.6);
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  height: 70vh;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+
+  form{
+    display: flex;
+    flex-direction: column;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+  }
+}

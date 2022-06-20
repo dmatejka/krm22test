@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
+import { Observable, Subscription, throwError } from 'rxjs';
 import { tap, switchMap, catchError, map } from 'rxjs/operators';
 import { User } from 'src/app/users/models/User';
 import { ApiStatus, UsersService } from '../services/users.service';
@@ -11,11 +11,12 @@ import { ApiStatus, UsersService } from '../services/users.service';
   styleUrls: ['./user-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserDetailComponent implements OnInit {
+export class UserDetailComponent implements OnInit, OnDestroy {
   user$: Observable<User | undefined>;
   id: number = -1;
   // public userStatus$: Observable<ApiStatus | undefined>;
   status: ApiStatus = ApiStatus.loading;
+  userSub: Subscription;
 
 
   constructor(
@@ -33,8 +34,8 @@ export class UserDetailComponent implements OnInit {
             return throwError(() => new Error(err))
           } )
       );
+      this.userSub = this.usersService.userStatus$.pipe(tap(data => console.log('user status: ', data))).subscribe(status => this.status = status);
   // this.userStatus$ = this.usersService.userStatus$.pipe(tap(data => console.log('user status: ', data)));
-  this.usersService.userStatus$.pipe(tap(data => console.log('user status: ', data))).subscribe(status => this.status = status);
 
     }
 
@@ -42,6 +43,8 @@ export class UserDetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
+  ngOnDestroy(){
+    if(this.userSub) this.userSub.unsubscribe();
+  }
 
 }

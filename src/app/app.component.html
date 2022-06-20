@@ -1,3 +1,4 @@
 <title>KRM 22</title>
-
+<button *ngIf="isLoggedIn$ | async" (click)="logout()">logout</button>
+<div>loggedIn: {{isLoggedIn$ | async}}</div>
 <router-outlet></router-outlet>
