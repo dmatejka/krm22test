@@ -1,0 +1,13 @@
+.container{
+  display: flex;
+    flex-direction: column;
+    align-content: center;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+
+    h1 {
+      font-size: 96px;
+      line-height: normal;
+    }
+}
