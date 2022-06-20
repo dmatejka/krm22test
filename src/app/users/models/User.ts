@@ -14,6 +14,7 @@ export class User {
   }
 }
 
+export const initUser = () => {return new User( -1, '', '', '', '')};
 @Injectable({
   providedIn: "root",
 })

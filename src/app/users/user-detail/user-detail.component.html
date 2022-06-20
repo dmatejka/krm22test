@@ -1,3 +1,4 @@
+<p >User: {{status}}</p>
 <ng-container *ngIf="user$ | async as user">
   <img [attr.src]="user.img" [attr.alt]="'Image of ' + user.fullName">
   <p>{{user.fullName}}</p>

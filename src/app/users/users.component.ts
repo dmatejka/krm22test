@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { Pagination } from '../core/models/ListPage';
 import { User } from './models/User';
-import { UsersService } from './services/users.service';
+import { ApiStatus, UsersService } from './services/users.service';
 
 @Component({
   selector: 'krm-users',
@@ -11,9 +12,13 @@ import { UsersService } from './services/users.service';
 })
 export class UsersComponent implements OnInit {
   public users$: Observable<User[]>;
+  public page$: Observable<Pagination>;
+  public listStatus$: Observable<ApiStatus>;
 
   constructor(protected usersService: UsersService) {
-    this.users$ = this.usersService.getPage(2).pipe(map(ul => ul.list ));
+    this.users$ = this.usersService.getPage(1, 7).pipe(map(ul => ul.list ));
+    this.page$ = this.usersService.getPage(1, 7).pipe(tap(page => console.log({page})),map(ul => ul.page ));
+    this.listStatus$ = this.usersService.listStatus$;
   }
 
   ngOnInit(): void {

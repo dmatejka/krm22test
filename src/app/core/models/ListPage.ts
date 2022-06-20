@@ -11,10 +11,10 @@ export interface ListPageResponse {
 }
 export class Pagination {
   constructor(
-    page: number,
-    per_page: number,
-    total: number,
-    total_pages: number,
+    public page: number,
+    public per_page: number,
+    public total: number,
+    public total_pages: number,
   ){}
 }
 
@@ -32,6 +32,9 @@ export class ListPage<T> implements IListPage<T> {
 export class ListPageAdapter<T> implements IListAdapter<T> {
   adapt(listpage: ListPageResponse, adapter: IAdapter<T> ): IListPage<T> {
     const {page, per_page, total, total_pages} = listpage;
+    // console.log('adapt: ', {page, per_page, total, total_pages})
+    // console.log('adapted: ',new Pagination(page, per_page, total, total_pages))
+
     return new ListPage<T>(
       new Pagination(page, per_page, total, total_pages),
       listpage.data?.map((item:any) => adapter.adapt(item))

@@ -1,4 +1,6 @@
 <p>users:</p>
+<p>loading: {{listStatus$ | async}}</p>
+<p>page: {{page$ | async | json}}</p>
 <ul *ngFor="let user of users$ | async">
   <krm-user-tile [user]="user"></krm-user-tile>
 </ul>

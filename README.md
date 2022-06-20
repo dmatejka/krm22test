@@ -16,4 +16,6 @@ Swtching light/dark mode switches favicon
 ### Token
 //TODO implement token lifecycle (validTo, refresh)
 
-
+## Store
+//TODO implement state management anf caching - ngrx/stateX/apollo
+//TODO overfetching optimalization
