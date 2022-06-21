@@ -21,6 +21,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
   public updateList: any[] = [];
+  public page!: Pagination;
 
 
   constructor(
@@ -31,33 +32,77 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnInit(){
-    const usersList$ = this.usersService.getPage(1, 7).pipe(shareReplay(1));
+    const per_page = 4;
+
+    const usersList$ = this.usersService.getPage(1, per_page).pipe(shareReplay(1));
+    const nextPage = new Pagination(1,per_page, per_page, 1); // only to init firstpage of dumb components
+
     usersList$.pipe(
+      startWith({list:this.generateUsers(nextPage)}),
       map(ul => ul.list ),
       tap(list => {
           const old = this.updateList;
-          this.updateList = [...old, ...list];
-          console.log('upadtelist', this.updateList)
+          this.mergeArraysById(old, list);
         })
-    ).subscribe(newdata => console.log({newdata}, this.updateList));
-    this.page$ = usersList$.pipe(map(ul => ul.page ));
+    ).subscribe(newList => console.log({newList}, this.updateList)); //TODO unsub
+
+    this.page$ = usersList$.pipe(
+      map(ul => ul.page ),
+      tap(page => this.page = page)
+    );
+    this.page$.subscribe(newPage => console.log({newPage}, this.updateList)); //TODO unsub;
 
 
 
   }
 
   fetchMore(){
-    this.usersService.getPage(2, 7).pipe(
-      map(ul => ul.list ),
-      startWith([initUser(), initUser()]),
-      tap(list => {
+    const page: Pagination = this.page;
+    const nextPage = this.getNext(page);
+    console.log('fetch',{nextPage})
+    if(nextPage) {
+      this.page = nextPage;
+      this.usersService.getPage(nextPage.page, nextPage.per_page).pipe(
+        startWith({list:this.generateUsers(nextPage)}),
+        map(ul => ul.list ),
+        tap(list => {
           const old = this.updateList;
-          this.updateList = [...old, ...list.filter(newI => !old.find(i => i.id === newI.id) ) ];
+          console.log( {nextPage} )
+          console.log('new-list', list, {old}, )
+          this.mergeArraysById(old, list);
           console.log('upadtelist', this.updateList)
-        })
-    ).subscribe(newdata => console.log({newdata}, this.updateList))
+          })
+      ).subscribe(newdata => console.log({newdata}, this.updateList))
+    }
 
   };
+
+  private mergeArraysById(old: any[], newArr: User[]) {
+    this.updateList = [...old.map(oldI => newArr.find(i => oldI.id === i.id) || oldI), ...newArr.filter(newI => !old.find(i => i.id === newI.id))];
+  }
+
+  private generateUsers(page: Pagination): User[] {
+    const {per_page, total, total_pages} = page;
+    const currentPage = page.page;
+    const from = ((currentPage - 1) * per_page) + 1;
+    const to = currentPage * per_page < total ? currentPage * per_page : total;
+
+    const dumbUsers: User[] = [];
+    for(let i = from; i <= to; i++){
+      dumbUsers.push(new User(i, 'dumb', 'dumb', 'dumb', 'assets/avatar/dumb.svg'));
+    }
+    return dumbUsers;
+  }
+
+  private getPrevious(page: Pagination): Pagination | undefined {
+    if (page.page - 1 < 1) return undefined;
+    return new Pagination(page.page - 1, page.per_page, page.total, page.total_pages);
+  }
+
+  private getNext(page: Pagination): Pagination | undefined {
+    if (page.page + 1 > page.total_pages) return undefined;
+    return new Pagination(page.page + 1, page.per_page, page.total, page.total_pages);
+  }
 
   trackElement(index: number, element: any) {
     return element ? element.id : null

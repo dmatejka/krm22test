@@ -12,16 +12,18 @@ const baseUrl = "https://reqres.in/api/login";
   providedIn: 'root'
 })
 export class AuthService {
-  public loginStatus$: Observable<ApiStatus>;
-  private _loginStatus$: Subject<ApiStatus> = new Subject<ApiStatus>();
+  public isLoggedIn$:Observable<boolean>;
+  public logingInStatus$: Observable<ApiStatus>;
 
+  private _loginStatus$: Subject<ApiStatus> = new Subject<ApiStatus>();
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private tokenService: TokenService
   ) {
-    this.loginStatus$ = this._loginStatus$.asObservable();
+    this.logingInStatus$ = this._loginStatus$.asObservable();
+    this.isLoggedIn$ = this.tokenService.isLoggedIn$;
   }
 
   logout() {

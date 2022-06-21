@@ -1,6 +1,6 @@
 <p>loading: {{listStatus}}</p>
 <p>page: {{page$ | async | json}}</p>
-<cdk-virtual-scroll-viewport #scroller itemSize="72" class="content container">
+<cdk-virtual-scroll-viewport #scroller itemSize="390" class="content container">
   <mat-list-item *ngFor="let user of updateList; let i = index; trackBy: trackElement" >
     <krm-user-tile [user]="user"></krm-user-tile>
   </mat-list-item>

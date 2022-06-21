@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     this.emailCtr = this.loginForm.get<string>('email') as AbstractControl;
     this.passwordCtr = this.loginForm.get('password') as AbstractControl;
 
-    this.loginSub = this.authService.loginStatus$.pipe(tap(status => console.log({status}))).subscribe(status => this.loginStatus = status);
+    this.loginSub = this.authService.logingInStatus$.pipe(tap(status => console.log({status}))).subscribe(status => this.loginStatus = status);
   }
 
   ngOnInit(): void {

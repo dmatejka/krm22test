@@ -19,6 +19,10 @@ export class TokenService {
     this.isLoggedIn$ = this._isLoggedIn$.asObservable().pipe(tap(isloggedin => console.log({isloggedin})), shareReplay(1));
   }
 
+  getIsLoggedIn(): boolean {
+    return this._isLoggedIn$.value;
+  }
+
   hasToken(): boolean {
     if(this._me) {
       return true;
