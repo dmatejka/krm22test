@@ -1,1 +1,18 @@
-<li><a [routerLink]="[user.id]">{{user.first_name}}</a></li>
+  <img matListAvatar [src]="user.img" [attr.alt]="user.fullName">
+  <div class="id">{{user.id}}</div>
+  <h3 matLine><a [routerLink]="[user.id]">{{user.fullName}}</a></h3>
+  <p matLine>{{user.email}}</p>
+<!--
+<mat-card >
+    <mat-card-title>
+      <h1>
+        <a [routerLink]="[user.id]">{{user.fullName}}</a>
+      </h1>
+    </mat-card-title>
+    <mat-card-subtitle><h2>{{user.id}}</h2></mat-card-subtitle>
+    <mat-card-content>
+      <img [src]="user.img">
+      <h3>{{user.first_name + ' ' + user.last_name}}</h3>
+      <p>{{user.email}}</p>
+    </mat-card-content>
+  </mat-card> -->

@@ -32,7 +32,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       switchMap( id => this.usersService.getUser(id)),
       catchError((err) => {
             console.error({err});
-            this.router.navigate(['/pageNotFound']);
+            this.router.navigate(['/404']);
             return throwError(() => new Error(err))
           } )
       );

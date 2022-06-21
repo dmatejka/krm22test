@@ -17,5 +17,8 @@ Swtching light/dark mode switches favicon
 //TODO implement token lifecycle (validTo, refresh)
 
 ## Store
-//TODO implement state management anf caching - ngrx/stateX/apollo
 //TODO overfetching optimalization
+//TODO implement state management and caching - ngrx/stateX/apollo...
+
+## Users
+There could be potentially a lot of users comming from the API. Therfore I have decided to use CDK-virtual-scroller
