@@ -18,12 +18,15 @@ import { MatFormFieldModule } from  '@angular/material/form-field';
 import { MatInputModule } from  '@angular/material/input';
 import { MatIconModule } from  '@angular/material/icon';
 import { MatButtonModule } from  '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 
 const MATERIALMODULES = [
   MatFormFieldModule,
   MatInputModule,
   MatIconModule,
-  MatButtonModule
+  MatButtonModule,
+  MatProgressBarModule
 ]
 @NgModule({
   declarations: [

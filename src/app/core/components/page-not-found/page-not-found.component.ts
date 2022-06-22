@@ -13,7 +13,7 @@ export class PageNotFoundComponent implements OnInit {
   }
 
   goHome(){
-    this.router.navigate(['/'])
+    this.router.navigate(['/', 'users'])
   }
 
 }

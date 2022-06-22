@@ -16,22 +16,22 @@
     max-width: 75%;
     max-height: 75%;
     #part-1 {
-      opacity: 0;
+      opacity: .8;
       animation: appear 2.5s 0.3s ease-in-out infinite;
     }
     #part-2 {
-      opacity: 0;
+      opacity: .8;
       animation: appear 2.5s 0.6s ease-in-out infinite;
     }
     #part-3 {
-      opacity: 0;
+      opacity: .8;
       animation: appear 2.5s 0.9s ease-in-out infinite;
     }
   }
 
   @keyframes appear {
-    0% { opacity: 0; }
-    50% { opacity: 1; }
-    100% { opacity: 0; }
+    0% { opacity: 0.8; }
+    50% { opacity: 0.3; }
+    100% { opacity: 0.8; }
   }
 }

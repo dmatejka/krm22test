@@ -67,6 +67,7 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
+    if(this.loginForm.status === "INVALID" ) return;
     console.log(this.loginForm);
     this.authService.login(this.emailCtr.value, this.passwordCtr.value).pipe(
       tap( () => this.router.navigate(['/', 'users']) )
