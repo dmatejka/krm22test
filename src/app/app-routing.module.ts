@@ -6,8 +6,7 @@ import { LoginComponent } from './core/components/login/login.component';
 const routes: Routes = [
   { path: '', component: LoginComponent, title: 'KRM22 Login' },
   { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule) },
-  { path: '404', component: PageNotFoundComponent },
-  // { path: '**', pathMatch: 'full', redirectTo: 'login' }
+  { path: '404', component: PageNotFoundComponent }
 ];
 
 @NgModule({
