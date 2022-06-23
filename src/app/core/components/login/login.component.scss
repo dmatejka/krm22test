@@ -1,24 +1,18 @@
-:host{
+:host {
   display: flex;
   height: 100%;
   align-items: center;
   flex-direction: column;
-  @media only screen
-  and (orientation : landscape) {
-    flex-direction: row;
-    .container{
-      form{
-        flex-direction: row;
-      }
-    }
-  }
+  justify-content: center;
 }
+
 
 header {
   margin-top: 1em;
-  padding: 1em;
+  padding: 2em;
   text-align: center;
-  img{
+  align-items: center;
+  img {
     opacity: 0;
     width: 4em;
     height: 4em;
@@ -34,7 +28,6 @@ header {
     font-size: 14px;
   }
 }
-
 
 .container {
   // background-color: rgba(238, 251, 255, 0.4);
@@ -71,9 +64,8 @@ header {
   // height: 100vh;
   justify-content: center;
   // position: absolute;
-  width: 100%;
+  // width: 100%;
   align-items: center;
-  justify-content: center;
   top: 0;
 }
 
@@ -194,4 +186,20 @@ header {
 
 .text-center {
   text-align: center;
+}
+
+
+@media only screen and (orientation: landscape) {
+  :host {
+    flex-direction: row;
+
+    //only mobile landscape
+    @media only screen and (max-device-width: 767px) {
+      .container {
+        form {
+          flex-direction: row;
+        }
+      }
+    }
+  }
 }
