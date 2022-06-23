@@ -1,3 +1,19 @@
+:host{
+  display: flex;
+  height: 100%;
+  align-items: center;
+  flex-direction: column;
+  @media only screen
+  and (orientation : landscape) {
+    flex-direction: row;
+    .container{
+      form{
+        flex-direction: row;
+      }
+    }
+  }
+}
+
 header {
   margin-top: 1em;
   padding: 1em;
@@ -52,9 +68,9 @@ header {
 .wrapper {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  // height: 100vh;
   justify-content: center;
-  position: absolute;
+  // position: absolute;
   width: 100%;
   align-items: center;
   justify-content: center;
