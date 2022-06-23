@@ -14,6 +14,7 @@
   >
 
   <div class="container fade-in">
+    loginStatus:{{loginStatus}}
     <form id="login" [formGroup]="loginForm" (keyup.enter)="submit()">
       <mat-form-field appearance="fill" class="fade-in delay-2">
         <mat-label>Email</mat-label>
@@ -66,17 +67,17 @@
       (click)="submit()"
       [disabled]="
         (loginForm.touched === true && loginForm.status === 'INVALID') ||
-        (loginStatus && loginStatus === 'loading')
+        (!!loginStatus && loginStatus === ApiStatusT.Loading)
       "
     >
       <div>
         <mat-progress-bar
-          *ngIf="loginStatus && loginStatus === 'loading'"
+          *ngIf="loginStatus && loginStatus === ApiStatusT.Loading"
           mode="indeterminate"
         ></mat-progress-bar>
         Login
         <mat-progress-bar
-          *ngIf="loginStatus && loginStatus === 'loading'"
+          *ngIf="loginStatus && loginStatus === ApiStatusT.Loading"
           mode="indeterminate"
         ></mat-progress-bar>
       </div>

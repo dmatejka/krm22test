@@ -1,0 +1,18 @@
+.container {
+  background-color: #e3f2fd;
+  height: calc(100vh - 56px);
+  overflow: auto;
+  max-width: 100%;
+  .tile{
+    padding: 0;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+  .btn_more {
+    width: 100%;
+    padding: 16px;
+  }
+  .spacer{
+    height: 30vh;
+  }
+}

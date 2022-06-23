@@ -1,0 +1,21 @@
+<cdk-virtual-scroll-viewport
+  #scroller
+  itemSize="162px"
+  class="container"
+>
+  <mat-card
+    class="tile fade-in"
+    *ngFor="let user of users; let i = index; trackBy: trackElement"
+  >
+    <krm-user-tile [user]="user" [cStatus]="(user.first_name === 'Dumb') ? ApiStatusT.Loading : ApiStatusT.Success"></krm-user-tile>
+  </mat-card>
+
+  <mat-card
+    class="tile fade-in"
+  >
+    <krm-user-tile [cStatus]="ApiStatusT.Loading"></krm-user-tile>
+  </mat-card>
+  <button *ngIf="this.page && this.page.page < this.page.total_pages && listStatus !== ApiStatusT.Loading" mat-button (click)="fetchMore()" class="btn_more">fetch more...</button>
+  <div class="spacer"></div>
+
+</cdk-virtual-scroll-viewport>

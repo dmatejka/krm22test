@@ -1,11 +1,10 @@
 :host {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
+  // display: flex;
+  // height: 100%;
+  // align-items: center;
+  // flex-direction: column;
+  // justify-content: center;
 }
-
 
 header {
   margin-top: 1em;
@@ -125,41 +124,6 @@ header {
   }
 }
 
-.fade-in {
-  opacity: 0;
-  animation-name: fadeInOpacity;
-  animation-iteration-count: 1;
-  animation-timing-function: ease-in;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  &.delay-1 {
-    animation-delay: 250ms;
-  }
-  &.delay-2 {
-    animation-delay: 500ms;
-  }
-  &.delay-3 {
-    animation-delay: 750ms;
-  }
-  &.delay-4 {
-    animation-delay: 1000ms;
-  }
-}
-
-@keyframes fadeInOpacity {
-  0% {
-    opacity: 0;
-  }
-  40% {
-    opacity: 0.2;
-  }
-  80% {
-    opacity: 0.9;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 
 @keyframes scaleInOpacity {
   0% {
@@ -188,18 +152,19 @@ header {
   text-align: center;
 }
 
-
-@media only screen and (orientation: landscape) {
+@media only screen and (orientation: landscape) and (min-device-width: 768px) {
   :host {
     flex-direction: row;
-
-    //only mobile landscape
-    @media only screen and (max-device-width: 767px) {
-      .container {
-        form {
-          flex-direction: row;
-        }
+    .container {
+      form {
+        flex-direction: row;
+        gap: 8px;
       }
+    }
+  }
+  @media only screen and (max-device-width: 767px) {
+    form {
+      flex-direction: column;
     }
   }
 }

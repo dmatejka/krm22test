@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap, catchError, throwError, Subject, Observable, shareReplay } from 'rxjs';
-import { ApiStatus } from 'src/app/users/services/users.service';
+import { ApiStatus } from 'src/app/core/models/ApiStatus';
 import { Me } from '../models/Me';
 import { TokenService } from './token.service';
 
@@ -38,13 +38,13 @@ export class AuthService {
     const params = new HttpParams().set('delay', '3');
     const body = {email, password}
 
-    this._loginStatus$.next(ApiStatus.loading);
+    this._loginStatus$.next(ApiStatus.Loading);
 
     return this.http.post(url, body, {params}).pipe(
       tap((data: any) => this.tokenService.setToken(new Me(data['token'])) ),
-      tap( () => this._loginStatus$.next(ApiStatus.success)),
+      tap( () => this._loginStatus$.next(ApiStatus.Success)),
       catchError(error => {
-        this._loginStatus$.next(ApiStatus.error);
+        this._loginStatus$.next(ApiStatus.Error);
         this.tokenService.deleteToken();
         return throwError(() => new Error(error))
       }),

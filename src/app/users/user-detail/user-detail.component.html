@@ -1,7 +1,24 @@
-<button mat-icon-button (click)="goBack()"><mat-icon>arrow_back_ios</mat-icon></button>
-<p >User: {{status}}</p>
-<ng-container *ngIf="user$ | async as user">
-  <img [attr.src]="user.img" [attr.alt]="'Image of ' + user.fullName">
-  <p>{{user.fullName}}</p>
-  <p>{{user.email}}</p>
-</ng-container>
+<!-- <mat-card>
+  <mat-card-header>
+    <mat-card-subtitle>User: {{status}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <ng-container *ngIf="user$ | async as user">
+    <img class="avatar" [attr.src]="user.img" [attr.alt]="'Image of ' + user.fullName">
+      <h3 class="name">{{user.fullName}}</h3>
+      <div class="email">
+        <a [attr.href]="'mailto: ' + user.email">
+          <mat-icon>email</mat-icon> </a
+        ><span> {{ user.email }}</span>
+      </div>
+    </ng-container>
+  </mat-card-content>
+</mat-card> -->
+
+<mat-card class="fade-in" *ngIf="user$ | async as user">
+  <krm-user-tile
+    [user]="user"
+    [cStatus]="user.first_name === 'Dumb' ? ApiStatusT.Loading : ApiStatusT.Success"
+    [cOrientation]="CompOrientationT.Portrait"
+  ></krm-user-tile>
+</mat-card>

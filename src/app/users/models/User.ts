@@ -15,6 +15,7 @@ export class User {
 }
 
 export const initUser = () => {return new User( -1, '', '', '', '')};
+export const getDumb = (id: number = -1) => {return new User( id, 'dumb.user@dumb.com', 'Dumb', 'DumbLast', 'assets/avatar/dumb.svg')};
 @Injectable({
   providedIn: "root",
 })

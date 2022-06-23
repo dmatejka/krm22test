@@ -4,27 +4,29 @@ import { CommonModule } from '@angular/common';
 import { UsersRoutingModule } from './users-routing.module';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserTileComponent } from './user-tile/user-tile.component';
-import { UsersComponent } from './user-list/users.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ImagePreloadDirective } from '../core/directives/img-default.directive';
 
 
 const MATERIAL_MODULES = [
   MatButtonModule,
   MatIconModule,
-  // MatCardModule,
+  MatCardModule,
   MatListModule,
   ScrollingModule
 ]
 @NgModule({
   declarations: [
-    UsersComponent,
+    UserListComponent,
     UserDetailComponent,
     UserTileComponent,
+    ImagePreloadDirective
   ],
   imports: [
     CommonModule,

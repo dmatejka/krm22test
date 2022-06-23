@@ -1,19 +1,14 @@
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
-import { catchError, finalize, map, shareReplay, startWith, tap } from 'rxjs/operators';
+import { Observable, Subject, throwError } from 'rxjs';
+import { catchError, map, shareReplay, tap } from 'rxjs/operators';
 import { ListPage } from 'src/app/core/models/ListPage';
+import { ApiStatus } from 'src/app/core/models/ApiStatus';
 import { User } from 'src/app/users/models/User';
 import { UserResponseAdapter } from '../models/UserResponse';
 import { UserListResponseAdapter } from '../models/UsersResponse';
 
 const baseUrl = "https://reqres.in/api/users";
-
-export const enum ApiStatus {
-  loading = 'loading',
-  error = 'error',
-  success = 'success',
-}
 
 @Injectable()
 export class UsersService {
@@ -40,15 +35,15 @@ export class UsersService {
     const url = baseUrl;
     const params = new HttpParams().set('delay', '3').set('page', page.toString()).set('per_page', per_page.toString());
 
-    this._listStatus$.next(ApiStatus.loading);
+    this._listStatus$.next(ApiStatus.Loading);
 
     return this.http.get(url, {params}).pipe(
       tap(page => console.log({page})),
       map((listPage:any) => this.usersResponseAdapter.adapt(listPage)),
-      tap( () => this._listStatus$.next(ApiStatus.success)),
+      tap( () => this._listStatus$.next(ApiStatus.Success)),
       shareReplay(1),
       catchError(error => {
-        this._listStatus$.next(ApiStatus.error);
+        this._listStatus$.next(ApiStatus.Error);
         return throwError(() => new Error(error))
       }),
     );
@@ -59,13 +54,13 @@ export class UsersService {
     const url = `${baseUrl}/${id}`;
     const params = new HttpParams().set('delay', '3');
 
-    this._userStatus$.next(ApiStatus.loading);
+    this._userStatus$.next(ApiStatus.Loading);
 
     return this.http.get(url,{params}).pipe(
       map((item:any) => this.userResponseAdapter.adapt(item)),
-      tap( () => this._userStatus$.next(ApiStatus.success)),
+      tap( () => this._userStatus$.next(ApiStatus.Success)),
       catchError(error => {
-        this._userStatus$.next(ApiStatus.error);
+        this._userStatus$.next(ApiStatus.Error);
         return throwError(() => new Error(error))
       }),
     );
