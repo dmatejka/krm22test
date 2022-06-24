@@ -29,7 +29,7 @@ export class AppComponent {
   setHeader(event: any){
     console.log({event})
     this.showHeader = !(event instanceof LoginComponent);
-    this.showBack = (event instanceof UserDetailComponent || event instanceof PageNotFoundComponent);
+    this.showBack = (event instanceof UserDetailComponent);
   }
 
   logout() {
