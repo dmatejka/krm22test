@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule) },
   { path: '404', component: PageNotFoundComponent },
   { path: 'resendpassword', redirectTo: '404' },
-  { path: 'register',  redirectTo: '404' }
+  { path: 'register',  redirectTo: '404' },
+  { path: '**',  redirectTo: 'users', pathMatch: 'full' },
 ];
 
 @NgModule({
