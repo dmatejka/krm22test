@@ -1,34 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>KRM22</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" id="favicon" type="image/x-icon" href="favicon.svg">
-  <link rel="manifest" id="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#1976d2">
-  <script>
-    const usesDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches || false;
-    const favicon = document.getElementById('favicon');
+  <head>
+    <meta charset="utf-8" />
+    <title>KRM22</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" id="favicon" type="image/x-icon" href="favicon.svg" />
+    <link rel="manifest" id="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#1976d2" />
+    <script>
+      const usesDarkMode =
+        window.matchMedia("(prefers-color-scheme: dark)").matches || false;
+      const favicon = document.getElementById("favicon");
 
-    function switchIcon(usesDarkMode) {
-      if (usesDarkMode) {
-        favicon.href = 'favicon-dark.svg';
-      } else {
-        favicon.href = 'favicon.svg';
+      function switchIcon(usesDarkMode) {
+        if (usesDarkMode) {
+          favicon.href = "favicon-dark.svg";
+        } else {
+          favicon.href = "favicon.svg";
+        }
       }
-    }
 
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener( "change", (e) => switchIcon(e.matches));
-    switchIcon(usesDarkMode);
-  </script>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-<body class="mat-typography">
-  <krm-root></krm-root>
-  <noscript>Please enable JavaScript to continue using this application.</noscript>
-</body>
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (e) => switchIcon(e.matches));
+      switchIcon(usesDarkMode);
+    </script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="mat-typography">
+    <krm-root></krm-root>
+    <noscript
+      >Please enable JavaScript to continue using this application.</noscript
+    >
+  </body>
 </html>

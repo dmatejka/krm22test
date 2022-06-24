@@ -4,7 +4,7 @@ import { shareReplay, tap } from 'rxjs/operators';
 import { Me } from '../models/Me';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TokenService {
   readonly localKey = 'me';
@@ -16,7 +16,9 @@ export class TokenService {
 
   constructor() {
     this.readToken();
-    this.isLoggedIn$ = this._isLoggedIn$.asObservable().pipe(tap(isloggedin => console.log({isloggedin})), shareReplay(1));
+    this.isLoggedIn$ = this._isLoggedIn$.asObservable().pipe(
+      shareReplay(1)
+    );
   }
 
   getIsLoggedIn(): boolean {
@@ -24,7 +26,7 @@ export class TokenService {
   }
 
   hasToken(): boolean {
-    if(this._me) {
+    if (this._me) {
       return true;
     }
 
@@ -32,7 +34,7 @@ export class TokenService {
   }
 
   getToken(): string {
-    if(this._me) {
+    if (this._me) {
       return this._me.token;
     }
     return '';
@@ -60,5 +62,4 @@ export class TokenService {
     this._me = encodedData ? JSON.parse(encodedData) : undefined;
     this._isLoggedIn$.next(this.hasToken());
   }
-
 }

@@ -15,7 +15,7 @@ import { ApiStatus } from '../../models/ApiStatus';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   ApiStatusT = ApiStatus;
 
   loginForm: FormGroup;
@@ -46,8 +46,6 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {}
-
   ngOnDestroy() {
     if (this.loginSub) this.loginSub.unsubscribe();
   }
@@ -75,7 +73,7 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  apiStatusReset(){
+  apiStatusReset() {
     this.loginStatus = undefined;
   }
 }

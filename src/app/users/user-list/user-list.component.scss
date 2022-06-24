@@ -3,74 +3,42 @@
   height: calc(100vh - 56px);
   overflow: auto;
   width: 100%;
-//   .wrapper {
-//     // display: flex;
-//     // flex-direction: column;
-// //   }
-// //   .tile {
-// //     padding: 0;
-// //     margin-top: 3px;
-// //     margin-bottom: 3px;
-// //     overflow: hidden;
-// //     height: 150px;
-// //   }
   .btn_more {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    .arrow-wrapper{
+    .arrow-wrapper {
       display: flex;
       margin-top: -12px;
       flex-direction: column;
       align-items: center;
       position: relative;
-      .arrow{
+      .arrow {
         position: absolute;
         top: 0;
       }
     }
-
-    // width: 100%;
-    // padding: 16px;
   }
   .spacer {
     height: 50vh;
   }
-// }
 }
 
 // @media only screen and (orientation: landscape) {
-  .container {
-    .wrapper {
-      max-width: 900px;
+.container {
+  .wrapper {
+    max-width: 900px;
     margin: 2rem auto;
     padding: 0;
     display: grid;
-    gap: .2rem;
+    gap: 0.2rem;
 
     grid-template-columns: repeat(1, 1fr);
-    // grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-
-  //  grid-template-rows: 1fr 1fr 1fr 1fr;
-  //  grid-template-columns: 1fr 1fr 1fr;
-
-  //  gap: 6px;
-  //  height: 100%;
-  //     .tile {
-  //       padding: 0;
-  //       margin-top: 0;
-  //       margin-bottom: o;
-  //       height: 350px;
-  //       width: 250px;
-  //     }
-
-    }
   }
+}
 
-// }
-
-.animate-down{
+.animate-down {
   animation-name: down;
   animation-duration: 1s;
   animation-timing-function: ease-out;
@@ -78,12 +46,19 @@
 }
 
 @keyframes down {
-  0% { opacity: 1; transform: translateY(0); }
-  50% { opacity: .8; transform: translateY(5px); }
-  100% { opacity: 0; transform: translateY(15px); }
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
 }
-
-
 
 @media (min-width: 500px) {
   .container {
@@ -97,14 +72,16 @@
 
 @media (min-width: 768px) {
   .container {
-    .wrapper { grid-template-columns: repeat(3, 1fr); }
+    .wrapper {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 }
 
 @media (min-width: 1200px) {
   .container {
-    .wrapper { grid-template-columns: repeat(4, 1fr); }
+    .wrapper {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 }
-
-

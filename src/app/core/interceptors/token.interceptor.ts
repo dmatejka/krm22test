@@ -3,17 +3,19 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenService } from '../services/token.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-
   constructor(private tokenService: TokenService) {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
     return next.handle(this.addAuthToken(request));
   }
 
@@ -24,11 +26,10 @@ export class AuthInterceptor implements HttpInterceptor {
       return request;
     }
 
-    console.info('add interecptor token: ', token)
     return request.clone({
       setHeaders: {
-        'x-access-token': token
-      }
-    })
+        'x-access-token': token,
+      },
+    });
   }
 }

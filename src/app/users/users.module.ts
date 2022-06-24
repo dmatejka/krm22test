@@ -14,27 +14,21 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ImagePreloadDirective } from '../core/directives/img-default.directive';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-
 const MATERIAL_MODULES = [
   MatButtonModule,
   MatIconModule,
   MatCardModule,
   MatListModule,
   MatProgressBarModule,
-  ScrollingModule
-]
+  ScrollingModule,
+];
 @NgModule({
   declarations: [
     UserListComponent,
     UserDetailComponent,
     UserTileComponent,
-    ImagePreloadDirective
+    ImagePreloadDirective,
   ],
-  imports: [
-    CommonModule,
-    UsersRoutingModule,
-    ...MATERIAL_MODULES
-
-  ]
+  imports: [CommonModule, UsersRoutingModule, ...MATERIAL_MODULES],
 })
-export class UsersModule { }
+export class UsersModule {}

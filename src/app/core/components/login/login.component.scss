@@ -1,13 +1,4 @@
-:host {
-  // display: flex;
-  // height: 100%;
-  // align-items: center;
-  // flex-direction: column;
-  // justify-content: center;
-}
-
 header {
-  // margin-top: 1em;
   padding: 2em;
   text-align: center;
   align-items: center;
@@ -29,7 +20,6 @@ header {
 }
 
 .container {
-  // background-color: rgba(238, 251, 255, 0.4);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -56,10 +46,10 @@ header {
     transition: background-color 600000s 0s, color 600000s 0s; // hack to hide autofill background color
   }
 
-  &.error{
-    background-color: #FFEBEE;
+  &.error {
+    background-color: #ffebee;
   }
-  &.loading{
+  &.loading {
     background-color: #e1f5fe90;
   }
 }
@@ -67,10 +57,7 @@ header {
 .wrapper {
   display: flex;
   flex-direction: column;
-  // height: 100vh;
   justify-content: center;
-  // position: absolute;
-  // width: 100%;
   align-items: center;
   top: 0;
 }
@@ -131,33 +118,6 @@ header {
   }
 }
 
-
-@keyframes scaleInOpacity {
-  0% {
-    opacity: 0;
-    transform: scale(0.1);
-  }
-  40% {
-    opacity: 0.6;
-    transform: scale(0.8);
-  }
-  85% {
-    opacity: 0.8;
-    transform: scale(1.05);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.nav-link {
-  margin: 20px 0;
-}
-
-.text-center {
-  text-align: center;
-}
 
 @media only screen and (orientation: landscape) and (min-device-width: 768px) {
   :host {
