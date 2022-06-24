@@ -15,7 +15,7 @@
 
   <div class="content fade-in">
     <h3>
-      <a class="nav-link" [routerLink]="[user.id]">{{ user.fullName }}</a>
+      <a class="nav-link" [routerLink]="['/','users',user.id]">{{ user.fullName }}</a>
     </h3>
     <div class="email">
       <a [attr.href]="'mailto: ' + user.email">
