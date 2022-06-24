@@ -3,16 +3,45 @@
   height: calc(100vh - 56px);
   overflow: auto;
   max-width: 100%;
-  .tile{
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .tile {
     padding: 0;
-    margin-top: 6px;
+    margin-top: 3px;
+    margin-bottom: 3px;
     overflow: hidden;
+    height: 150px;
   }
   .btn_more {
     width: 100%;
     padding: 16px;
   }
-  .spacer{
+  .spacer {
     height: 30vh;
+  }
+}
+
+@media only screen and (orientation: landscape) and (min-device-width: 512px) {
+  .container {
+    .wrapper {
+      margin: auto;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      max-width: 75%;
+      .tile {
+        padding: 0;
+        margin-top: 0;
+        margin-bottom: o;
+        height: 350px;
+        width: 250px;
+      }
+      .spacer {
+        width: 100%;
+      }
+    }
   }
 }

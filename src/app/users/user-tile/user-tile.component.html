@@ -1,12 +1,19 @@
-<img
-  class="avatar"
-  default="/assets/avatar/dumb.svg"
-  [src]="user.img"
-  [attr.alt]="user.fullName"
-  loading="lazy"
-/>
-<mat-card-content>
-  <div class="content">
+<mat-card class="tile">
+  <div class="header fade-in">
+    <mat-progress-bar
+          *ngIf="cStatus === ApiStatusT.Loading"
+          mode="indeterminate"
+        ></mat-progress-bar>
+    <img
+      class="avatar"
+      default="/assets/avatar/dumb.svg"
+      [src]="user.img"
+      [attr.alt]="user.fullName"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="content fade-in">
     <h3>
       <a class="nav-link" [routerLink]="[user.id]">{{ user.fullName }}</a>
     </h3>
@@ -16,4 +23,4 @@
       ><span> {{ user.email }}</span>
     </div>
   </div>
-</mat-card-content>
+</mat-card>

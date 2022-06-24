@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of, Subscription, throwError } from 'rxjs';
 import { tap, switchMap, catchError, map, startWith } from 'rxjs/operators';
-import { User } from 'src/app/users/models/User';
+import { getDumb, User } from 'src/app/users/models/User';
 import { ApiStatus } from 'src/app/core/models/ApiStatus';
 import { UsersService } from '../services/users.service';
 import { CompOrientation, CompState } from 'src/app/core/models/CompState';
@@ -36,7 +36,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.user$ = this.route.paramMap.pipe(
       map(params => this.id = Number(params.get('id'))),
       switchMap( id => this.usersService.getUser(id)),
-      startWith( new User(-1, 'dumb.user@dumb.com', 'dumb', 'dumblast', 'assets/avatar/dumb.svg') ),
+      startWith( getDumb() ),
       catchError((err) => {
             console.error({err});
             this.router.navigate(['/404']);

@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ImagePreloadDirective } from '../core/directives/img-default.directive';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 const MATERIAL_MODULES = [
@@ -19,6 +20,7 @@ const MATERIAL_MODULES = [
   MatIconModule,
   MatCardModule,
   MatListModule,
+  MatProgressBarModule,
   ScrollingModule
 ]
 @NgModule({

@@ -8,7 +8,8 @@ import { User } from 'src/app/users/models/User';
 import { UserResponseAdapter } from '../models/UserResponse';
 import { UserListResponseAdapter } from '../models/UsersResponse';
 
-const baseUrl = "https://reqres.in/api/users";
+const baseUrl:string = "https://reqres.in/api/users";
+const DELAY:string = '3';
 
 @Injectable()
 export class UsersService {
@@ -27,13 +28,9 @@ export class UsersService {
     this.userStatus$ = this._userStatus$.asObservable();
   }
 
-  // public getPageStatus(): Observable<string> {
-  //   return
-  // }
-
   public getPage(page: number,per_page: number = 8): Observable<ListPage<User>> {
     const url = baseUrl;
-    const params = new HttpParams().set('delay', '3').set('page', page.toString()).set('per_page', per_page.toString());
+    const params = new HttpParams().set('delay', DELAY).set('page', page.toString()).set('per_page', per_page.toString());
 
     this._listStatus$.next(ApiStatus.Loading);
 
@@ -52,7 +49,7 @@ export class UsersService {
     if(!id) return throwError(() => new Error('User id is required!'));
 
     const url = `${baseUrl}/${id}`;
-    const params = new HttpParams().set('delay', '3');
+    const params = new HttpParams().set('delay', DELAY);
 
     this._userStatus$.next(ApiStatus.Loading);
 

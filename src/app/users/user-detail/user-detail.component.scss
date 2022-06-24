@@ -1,7 +1,17 @@
 :host {
   display: flex;
   justify-content: center;
-  align-items: center;
+  .wrapper {
+    width: 100%;
+  }
+}
+
+@media only screen and (orientation: landscape) and (min-device-width: 768px) {
+  :host {
+    .wrapper {
+      width: 70%;
+    }
+  }
 }
 
 // .mat-card{

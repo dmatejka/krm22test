@@ -1,6 +1,6 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { AfterViewInit, Component, NgZone, OnDestroy, ViewChild } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { map, tap, pairwise, throttleTime, startWith, } from 'rxjs/operators';
 import { Pagination } from 'src/app/core/models/ListPage';
 import { getDumb, User } from '../models/User';
@@ -43,13 +43,11 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
     this.page = new Pagination(1, ITEMS_PER_PAGE, ITEMS_PER_PAGE, 1); // only to init firstpage of dumb components
     this.usersService.getPage(1, ITEMS_PER_PAGE).pipe(
       startWith({page: this.page, list:this.generateUsers(this.page)}),
-      // map(ul => ul.list ),
       tap(listPage => {
           this.users = this.mergeArraysById(this.users, listPage.list);
           this.page = listPage.page;
         }),
       tap(usersPage => console.log({'usersPage': usersPage})),
-      // take(1)
     ).subscribe();
 
   }

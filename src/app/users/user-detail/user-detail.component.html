@@ -1,24 +1,19 @@
-<!-- <mat-card>
-  <mat-card-header>
-    <mat-card-subtitle>User: {{status}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <ng-container *ngIf="user$ | async as user">
-    <img class="avatar" [attr.src]="user.img" [attr.alt]="'Image of ' + user.fullName">
-      <h3 class="name">{{user.fullName}}</h3>
-      <div class="email">
-        <a [attr.href]="'mailto: ' + user.email">
-          <mat-icon>email</mat-icon> </a
-        ><span> {{ user.email }}</span>
-      </div>
-    </ng-container>
-  </mat-card-content>
-</mat-card> -->
-
-<mat-card class="fade-in" *ngIf="user$ | async as user">
+<div class="wrapper">
   <krm-user-tile
+    *ngIf="user$ | async as user"
+    class="tile fade-in"
     [user]="user"
-    [cStatus]="user.first_name === 'Dumb' ? ApiStatusT.Loading : ApiStatusT.Success"
+    [cStatus]="
+      user.first_name === 'Dumb' ? ApiStatusT.Loading : ApiStatusT.Success
+    "
     [cOrientation]="CompOrientationT.Portrait"
-  ></krm-user-tile>
-</mat-card>
+  >
+  </krm-user-tile>
+</div>
+
+<!-- TEST DUMB COMPONENT -->
+<!-- <krm-user-tile
+      class="tile fade-in"
+      [cStatus]="ApiStatusT.Loading"
+      [cOrientation]="CompOrientationT.Portrait"
+    ></krm-user-tile> -->
