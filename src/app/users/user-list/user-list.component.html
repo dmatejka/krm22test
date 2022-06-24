@@ -8,14 +8,15 @@
         user.first_name === 'Dumb' ? ApiStatusT.Loading : ApiStatusT.Success
       "
       [cOrientation]="narrow ? CompOrientationT.Landscape : CompOrientationT.Portrait"
+      [hover]="listStatus !== ApiStatusT.Loading"
     ></krm-user-tile>
 
     <!-- TEST DUMB COMPONENT -->
-    <!-- <krm-user-tile
+    <krm-user-tile
       class="tile fade-in"
       [cStatus]="ApiStatusT.Loading"
       [cOrientation]="narrow ? CompOrientationT.Landscape : CompOrientationT.Portrait"
-    ></krm-user-tile> -->
+    ></krm-user-tile>
 
     <button
       *ngIf="

@@ -10,9 +10,10 @@
     transition: all 0.5s ease-in;
     overflow: hidden;
 
-    &.selected {
-      @include mat.elevation(24);
-      transform: scale(1.15);
+    &.hover:hover {
+      @include mat.elevation(8);
+      transform: scale(1.02);
+      transition: all 0.1s ease-out;
     }
 
     .header{
@@ -44,7 +45,7 @@
         line-height: normal;
         display: flex;
         align-items: center;
-        height: 1em;
+        max-height: 1.9em;
         width: 90%;
       }
       h3,
@@ -124,13 +125,9 @@
         }
       }
       .content {
-        // h3 {
-        //   font-size: 26px;
-        // }
         p,
         a,
         span {
-          // font-size: 26px;
           border-radius: 10px;
           color: #78909c;
           background-color: #78909c;

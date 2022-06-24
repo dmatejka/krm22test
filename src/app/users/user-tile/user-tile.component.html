@@ -1,4 +1,4 @@
-<mat-card class="tile" [class.selected]="isSelected">
+<mat-card class="tile" [class.hover]="hover">
   <div class="header fade-in">
     <mat-progress-bar
           *ngIf="cStatus === ApiStatusT.Loading"
@@ -14,7 +14,7 @@
   </div>
 
   <div class="content fade-in">
-    <h3 (click)="isSelected = true">
+    <h3>
       <a class="nav-link" [routerLink]="[user.id]">{{ user.fullName }}</a>
     </h3>
     <div class="email">

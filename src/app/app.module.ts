@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { LayoutModule } from '@angular/cdk/layout';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatFormFieldModule } from  '@angular/material/form-field';
 import { MatInputModule } from  '@angular/material/input';
 import { MatIconModule } from  '@angular/material/icon';
@@ -22,9 +23,11 @@ import { MatButtonModule } from  '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 
 
 const MATERIALMODULES = [
+  MatSnackBarModule,
   LayoutModule,
   MatFormFieldModule,
   MatInputModule,
@@ -61,7 +64,12 @@ const MATERIALMODULES = [
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+   }
   ],
   bootstrap: [AppComponent]
 })

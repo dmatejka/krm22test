@@ -21,7 +21,7 @@ export class UserTileComponent {
   @Input() public cStatus: ApiStatus = ApiStatus.Success;
   @Input() public cOrientation: CompOrientation = CompOrientation.Landscape;
 
-  @Input() public isSelected: boolean = false;
+  @Input() public hover: boolean = false;
 
   // #### Setting CLASSes for STATE, STATUS and ORIENTATION of the component
   // @HostBinding('class.state-dumb') get stateDumb() { return this.cState===CompState.Dumb; }
@@ -29,7 +29,7 @@ export class UserTileComponent {
   // @HostBinding('class.state-add') get stateAdd() { return this.cState===CompState.Add; }
   // @HostBinding('class.state-update') get stateEdit() { return this.cState===CompState.Update; }
 
-  @HostBinding('class.selected') get stateSelected() { return this.isSelected; }
+  // @HostBinding('class.selected') get stateSelected() { return this.isSelected; }
 
   @HostBinding('class.portrait') get orientPortrait() { return this.cOrientation === CompOrientation.Portrait; }
   @HostBinding('class.landscape') get orientLandscape() { return this.cOrientation === CompOrientation.Landscape; }
