@@ -21,16 +21,16 @@ intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEven
                       // Client side error
                        errorMsg = `Error: ${error.error.message}`;
                     } else {
-                      console.log(error.error.error)
                        // Server side error
-                       errorMsg = `${error?.error?.error}`;
+                       if(error?.error?.error) {
+                         errorMsg = `${error.error.error}`;
 
-                       this._snackBar.open(errorMsg, 'OK',{
-                        duration: 5000,
-                        verticalPosition: 'top',
-                        panelClass: 'error'
-                      });
-
+                         this._snackBar.open(errorMsg, 'OK',{
+                          duration: 5000,
+                          verticalPosition: 'top',
+                          panelClass: 'error'
+                        });
+                       }
                     }
                     console.error(errorMsg);
                     return throwError(() => new Error(errorMsg));
