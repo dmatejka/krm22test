@@ -27,12 +27,12 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService) {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [
+      email: new FormControl('eve.holt@reqres.in', [
         Validators.required,
         Validators.email,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
       ]),
-      password: new FormControl('', [
+      password: new FormControl('cityslicka', [
         Validators.required,
         Validators.minLength(5),
       ]),
