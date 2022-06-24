@@ -1,16 +1,14 @@
 <cdk-virtual-scroll-viewport #scroller itemSize="156" class="container">
   <div class="wrapper">
     <krm-user-tile
-      class="tile fade-in"
+      class="tile fade-in grid_1_of_4"
       *ngFor="let user of users; let i = index; trackBy: trackElement"
       [user]="user"
       [cStatus]="
         user.first_name === 'Dumb' ? ApiStatusT.Loading : ApiStatusT.Success
       "
-      [cOrientation]="CompOrientationT.Portrait"
+      [cOrientation]="narrow ? CompOrientationT.Landscape : CompOrientationT.Portrait"
     ></krm-user-tile>
-    <div class="spacer"></div>
-
 
     <!-- TEST DUMB COMPONENT -->
     <!-- <krm-user-tile
@@ -27,8 +25,12 @@
       mat-button
       (click)="fetchMore()"
       class="btn_more fade-in"
-    ><mat-icon>expand_more</mat-icon>
-      fetch more...
+      >
+      <div>fetch more...</div>
+      <div class="arrow-wrapper">
+        <mat-icon class="arrow animate-down">expand_more</mat-icon>
+        <mat-icon class="arrow animate-down delay-2">expand_more</mat-icon>
+      </div>
     </button>
   </div>
   <div class="spacer"></div>

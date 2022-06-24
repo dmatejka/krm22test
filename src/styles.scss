@@ -39,18 +39,19 @@ a {
   animation-timing-function: ease-in;
   animation-duration: 2s;
   animation-fill-mode: forwards;
-  &.delay-1 {
-    animation-delay: 250ms;
-  }
-  &.delay-2 {
-    animation-delay: 500ms;
-  }
-  &.delay-3 {
-    animation-delay: 750ms;
-  }
-  &.delay-4 {
-    animation-delay: 1000ms;
-  }
+}
+
+.delay-1 {
+  animation-delay: 250ms;
+}
+.delay-2 {
+  animation-delay: 500ms;
+}
+.delay-3 {
+  animation-delay: 750ms;
+}
+.delay-4 {
+  animation-delay: 1000ms;
 }
 
 @keyframes fadeInOpacity {

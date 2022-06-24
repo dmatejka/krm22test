@@ -1,15 +1,26 @@
+@use '@angular/material' as mat;
+
 :host {
   .mat-card {
     display: flex;
     align-items: center;
     padding: 0;
-    height:100%;
-    width: 100%;
+    // height:100%;
+    // width: 100%;
     transition: all 0.5s ease-in;
     overflow: hidden;
+    transition: all .2s;
+    @include mat.elevation-transition();
+    @include mat.elevation(4);
+
+    &.selected {
+      @include mat.elevation(24);
+      transform: scale(2);
+    }
 
     .header{
       width: 33%;
+      margin: -32px 0;
       .avatar {
         margin-left: -52px;
         border: 4px solid #7e57c2;
@@ -23,7 +34,7 @@
 
     .content {
       width: 67%;
-      padding: 16px;
+      // padding: 16px;
       .id {
         font-size: x-small;
       }
@@ -57,10 +68,12 @@
   &.portrait {
     .mat-card{
       flex-direction: column;
+      // padding-bottom: 90px;
       .header{
         text-align: center;
         width: 100%;
         background-color: #7e57c2;
+        margin: 0;
         .avatar {
           margin-top: 16px;
           margin-bottom: -32px;
@@ -70,7 +83,16 @@
         }
       }
       .content{
-        padding-top: 40px;
+        width: 100%;
+        h3{
+          margin: 1.1em 16px 0 16px;
+        }
+        .email{
+          margin-bottom: 16px;
+          margin: 16px 16px;
+        }
+        // padding: 40px 5px 5px 5px;
+        // width: 100%;
       }
     }
   }

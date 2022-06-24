@@ -2,13 +2,16 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { AfterViewInit, Component, NgZone, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { map, tap, pairwise, throttleTime, startWith, } from 'rxjs/operators';
+
+import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { Pagination } from 'src/app/core/models/ListPage';
 import { getDumb, User } from '../models/User';
 import { ApiStatus } from 'src/app/core/models/ApiStatus';
 import { UsersService } from '../services/users.service';
 import { CompOrientation, CompState } from 'src/app/core/models/CompState';
 
-const ITEMS_PER_PAGE = 4; //TODO move to config file
+const ITEMS_PER_PAGE = 5; //TODO move to config file
 
 @Component({
   selector: 'krm-users',
@@ -30,12 +33,15 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
   public users: any[] = [];
   public page!: Pagination;
+  narrow: boolean;
 
 
   constructor(
     private ngZone: NgZone,
+    private observer: BreakpointObserver,
     protected usersService: UsersService
   ) {
+    this.narrow = this.observer.isMatched('(max-width: 500px)');
     this.userSub = this.usersService.listStatus$.subscribe(status => this.listStatus = status);
   }
 

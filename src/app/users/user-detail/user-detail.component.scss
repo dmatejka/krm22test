@@ -1,6 +1,7 @@
 :host {
   display: flex;
   justify-content: center;
+  margin-top: 16px;
   .wrapper {
     width: 100%;
   }
@@ -8,6 +9,7 @@
 
 @media only screen and (orientation: landscape) and (min-device-width: 768px) {
   :host {
+    margin-top: -16px;
     .wrapper {
       width: 70%;
     }

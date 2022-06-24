@@ -14,6 +14,7 @@ import { AuthInterceptor } from './core/interceptors/token.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { LayoutModule } from '@angular/cdk/layout';
 import { MatFormFieldModule } from  '@angular/material/form-field';
 import { MatInputModule } from  '@angular/material/input';
 import { MatIconModule } from  '@angular/material/icon';
@@ -23,6 +24,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 const MATERIALMODULES = [
+  LayoutModule,
   MatFormFieldModule,
   MatInputModule,
   MatIconModule,
