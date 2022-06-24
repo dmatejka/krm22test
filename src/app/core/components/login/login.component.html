@@ -13,8 +13,11 @@
     >Need account? Register.</a
   >
 
-  <div class="container fade-in">
-    loginStatus:{{loginStatus}}
+  <mat-card class="container fade-in mat-elevation-z0"
+    [class.error]=" loginStatus === ApiStatusT.Error"
+    [class.loading]=" loginStatus === ApiStatusT.Loading"
+    [class.mat-elevation-z2]="loginStatus && loginStatus !== ApiStatusT.Success"
+  >
     <form id="login" [formGroup]="loginForm" (keyup.enter)="submit()">
       <mat-form-field appearance="fill" class="fade-in delay-2">
         <mat-label>Email</mat-label>
@@ -24,6 +27,7 @@
           name="username"
           type="text"
           value="eve.holt@reqres.in"
+          (mousedown)="apiStatusReset()"
         />
         <mat-icon matSuffix>alternate_email</mat-icon>
         <mat-error *ngIf="emailCtr.dirty && emailCtr.hasError('required')">
@@ -42,6 +46,7 @@
           type="password"
           maxlength="100"
           value="cityslicka"
+          (mousedown)="apiStatusReset()"
         />
         <mat-icon matSuffix>lock</mat-icon>
         <mat-error
@@ -82,7 +87,7 @@
         ></mat-progress-bar>
       </div>
     </button>
-  </div>
+  </mat-card>
 </div>
 
 <div class="backgound-wrapper">

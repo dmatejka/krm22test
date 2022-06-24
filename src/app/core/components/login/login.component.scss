@@ -55,6 +55,13 @@ header {
   input:-webkit-autofill:focus {
     transition: background-color 600000s 0s, color 600000s 0s; // hack to hide autofill background color
   }
+
+  &.error{
+    background-color: #FFEBEE;
+  }
+  &.loading{
+    background-color: #e1f5fe90;
+  }
 }
 
 .wrapper {

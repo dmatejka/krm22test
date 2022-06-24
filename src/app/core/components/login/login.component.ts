@@ -74,4 +74,8 @@ export class LoginComponent implements OnInit {
         },
       });
   }
+
+  apiStatusReset(){
+    this.loginStatus = undefined;
+  }
 }

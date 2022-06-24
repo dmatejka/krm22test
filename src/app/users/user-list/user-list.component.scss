@@ -47,7 +47,7 @@
     margin: 2rem auto;
     padding: 0;
     display: grid;
-    gap: 1rem;
+    gap: .2rem;
 
     grid-template-columns: repeat(1, 1fr);
     // grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -89,6 +89,7 @@
   .container {
     .wrapper {
       grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
       padding: 0 2rem;
     }
   }

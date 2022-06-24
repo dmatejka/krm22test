@@ -33,7 +33,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
   public users: any[] = [];
   public page!: Pagination;
-  narrow: boolean;
+  narrow: boolean = true;
 
 
   constructor(
@@ -41,7 +41,9 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
     private observer: BreakpointObserver,
     protected usersService: UsersService
   ) {
-    this.narrow = this.observer.isMatched('(max-width: 500px)');
+    this.observer.observe('(min-width: 500px)').subscribe((result) => {
+      this.narrow = !result.matches;
+    });
     this.userSub = this.usersService.listStatus$.subscribe(status => this.listStatus = status);
   }
 
