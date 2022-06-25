@@ -2,7 +2,7 @@
   <div class="wrapper">
     <krm-user-tile
       class="tile fade-in"
-      *ngFor="let user of users; let i = index; trackBy: trackElement"
+      *ngFor="let user of users$ | async; let i = index; trackBy: trackElement"
       [user]="user"
       [cStatus]="
         user.first_name === 'Dumb' ? ApiStatusT.Loading : ApiStatusT.Success
@@ -20,23 +20,20 @@
       [cOrientation]="narrow ? CompOrientationT.Landscape : CompOrientationT.Portrait"
     ></krm-user-tile> -->
 
-    <button
-      *ngIf="
-        this.page &&
-        this.page.page < this.page.total_pages &&
-        listStatus !== ApiStatusT.Loading
-      "
-      mat-button
-      (click)="fetchMore()"
-      class="btn_more fade-in"
-    >
-      <div>fetch more...</div>
-      <div class="arrow-wrapper">
-        <mat-icon class="arrow animate-down">expand_more</mat-icon>
-        <mat-icon class="arrow animate-down delay-2">expand_more</mat-icon>
-      </div>
-    </button>
-
+    <ng-container *ngIf="page$ | async as page">
+      <button
+        *ngIf="page && page.page < page.total_pages"
+        mat-button
+        (click)="fetchMore()"
+        class="btn_more fade-in"
+      >
+        <div>fetch more...</div>
+        <div class="arrow-wrapper">
+          <mat-icon class="arrow animate-down">expand_more</mat-icon>
+          <mat-icon class="arrow animate-down delay-2">expand_more</mat-icon>
+        </div>
+      </button>
+    </ng-container>
   </div>
   <div class="spacer"></div>
 </cdk-virtual-scroll-viewport>

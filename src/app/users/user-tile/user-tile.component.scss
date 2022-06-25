@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
 :host {
   .mat-card {
@@ -16,10 +16,10 @@
       transition: all 0.1s ease-out;
     }
 
-    .header{
+    .header {
       width: 33%;
       margin: -32px 0;
-      .mat-progress-bar{
+      .mat-progress-bar {
         margin-bottom: -4px;
       }
       .avatar {
@@ -29,9 +29,9 @@
         height: 185px;
         width: 150px;
         object-fit: cover;
+        background-color: #b0bec5;
       }
     }
-
 
     .content {
       width: 67%;
@@ -68,10 +68,10 @@
   // COMPONENT ORIENTATION
   // PORTRAIT
   &.portrait {
-    .mat-card{
+    .mat-card {
       flex-direction: column;
       // padding-bottom: 90px;
-      .header{
+      .header {
         text-align: center;
         width: 100%;
         background-color: #7e57c2;
@@ -84,14 +84,14 @@
           height: 10em;
         }
       }
-      .content{
+      .content {
         width: 100%;
-        h3{
+        h3 {
           margin: 1.1em 16px 0 16px;
           height: 2.5em;
           width: auto;
         }
-        .email{
+        .email {
           margin-bottom: 16px;
           margin: 16px 16px;
         }
@@ -101,11 +101,11 @@
     }
   }
 
- &.landscape.status-loading {
+  &.landscape.status-loading {
     .mat-card {
       .header {
-        background-color: #B0BEC5;
-        .avatar{
+        background-color: #b0bec5;
+        .avatar {
           object-fit: contain;
         }
       }
@@ -117,11 +117,11 @@
   &.status-loading {
     .mat-card {
       opacity: 0.4;
-      background-color: #B0BEC5;
+      background-color: #b0bec5;
       .header {
-        background-color: #546E7A;
+        background-color: #546e7a;
         .avatar {
-        border-color: #546E7A;
+          border-color: #546e7a;
         }
       }
       .content {

@@ -1,21 +1,33 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   NgZone,
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { map, tap, pairwise, throttleTime, startWith } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
+import {
+  map,
+  tap,
+  pairwise,
+  throttleTime,
+  startWith,
+  filter,
+  scan,
+} from 'rxjs/operators';
 
 import { BreakpointObserver } from '@angular/cdk/layout';
 
-import { Pagination } from 'src/app/core/models/ListPage';
+import { ListPage, Pagination } from 'src/app/core/models/ListPage';
 import { getDumb, User } from '../models/User';
 import { ApiStatus } from 'src/app/core/models/ApiStatus';
 import { UsersService } from '../services/users.service';
 import { CompOrientation, CompState } from 'src/app/core/models/CompState';
+import { filterNullish } from 'src/app/core/operators/filterNullish.operator';
+import { mergeArraysById } from 'src/app/core/utils/array-utils';
 
 const ITEMS_PER_PAGE = 5; //TODO move to config file
 
@@ -23,6 +35,7 @@ const ITEMS_PER_PAGE = 5; //TODO move to config file
   selector: 'krm-users',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserListComponent implements AfterViewInit, OnDestroy {
   // enums for Templates
@@ -31,73 +44,94 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
   public CompOrientationT = CompOrientation;
 
   public listStatus!: ApiStatus;
-  public users: any[] = [];
-  public page!: Pagination;
+  public users$: Observable<User[]>;
+  public page$: Observable<Pagination>;
   public narrow: boolean = true;
 
-  private userSub: Subscription;
+  private fetch$: Subject<any> = new Subject();
+  private lastPage: Pagination = new Pagination(
+    1,
+    ITEMS_PER_PAGE,
+    ITEMS_PER_PAGE,
+    1
+  );
+
+  private fetchSub: Subscription;
+  private userStatusSub: Subscription;
   private scrollSub!: Subscription;
+
+  private readonly firstPage = {
+    page: this.lastPage,
+    list: this.generateUsers(this.lastPage),
+  };
+
+  private listPage$: BehaviorSubject<ListPage<User>> = new BehaviorSubject(
+    this.firstPage
+  );
 
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
 
   constructor(
     private ngZone: NgZone,
+    private cd: ChangeDetectorRef,
     private observer: BreakpointObserver,
     protected usersService: UsersService
   ) {
-    this.observer.observe('(min-width: 500px)').subscribe((result) => {
-      this.narrow = !result.matches;
-    });
 
-    this.userSub = this.usersService.listStatus$.subscribe(
+
+    this.users$ = this.listPage$.pipe(
+      map((lp) => lp.list),
+      scan(
+        (oldUsers, newUsers) => mergeArraysById(oldUsers, newUsers),
+        new Array()
+      )
+    );
+
+    this.page$ = this.listPage$.pipe(
+      map((lp) => lp.page),
+      filter((page) => page.page >= this.lastPage.page),
+      tap((page) => (this.lastPage = page))
+    );
+
+    this.fetchSub = this.fetch$
+      .pipe(
+        map(() => this.getNext(this.lastPage)),
+        filterNullish(),
+        tap((nextPage) =>
+          this.usersService
+            .getPage(nextPage.page, nextPage.per_page)
+            .pipe(
+              startWith({ page: nextPage, list: this.generateUsers(nextPage) }),
+              tap((lp) => this.listPage$.next(lp))
+            )
+            .subscribe()
+        )
+      )
+      .subscribe();
+
+    this.userStatusSub = this.usersService.listStatus$.subscribe(
       (status) => (this.listStatus = status)
     );
   }
 
   ngOnInit() {
-    this.page = new Pagination(1, ITEMS_PER_PAGE, ITEMS_PER_PAGE, 1); // only to init firstpage of dumb components
+    this.observer.observe('(min-width: 500px)').subscribe((result) => {
+      this.narrow = !result.matches;
+      this.cd.detectChanges();
+    });
 
+    // get first page
     this.usersService
       .getPage(1, ITEMS_PER_PAGE)
-      .pipe(
-        startWith({ page: this.page, list: this.generateUsers(this.page) }),
-        tap((listPage) => {
-          this.users = this.mergeArraysById(this.users, listPage.list);
-          this.page = listPage.page;
-        }),
-      )
-      .subscribe();
+      .subscribe((data) => this.listPage$.next(data));
   }
 
   fetchMore() {
-    const page: Pagination = this.page;
-    const nextPage = this.getNext(page);
-
-    if (nextPage) {
-      this.page = nextPage;
-      this.usersService
-        .getPage(nextPage.page, nextPage.per_page)
-        .pipe(
-          startWith({ page: nextPage, list: this.generateUsers(nextPage) }),
-          tap((pagelist) => {
-            this.page = pagelist.page;
-            this.users = this.mergeArraysById(this.users, pagelist.list);
-          }),
-        )
-        .subscribe();
-    }
-  }
-
-  //TODO move to Utils
-  private mergeArraysById(old: any[], newArr: User[]): User[] {
-    return [
-      ...old.map((oldI) => newArr.find((i) => oldI.id === i.id) || oldI),
-      ...newArr.filter((newI) => !old.find((i) => i.id === newI.id)),
-    ];
+    this.fetch$.next(true);
   }
 
   private generateUsers(page: Pagination): User[] {
-    const { per_page, total, total_pages } = page;
+    const { per_page, total } = page;
     const currentPage = page.page;
     const from = (currentPage - 1) * per_page + 1;
     const to = currentPage * per_page < total ? currentPage * per_page : total;
@@ -149,7 +183,8 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if(this.userSub) this.userSub.unsubscribe();
-    if(this.scrollSub) this.scrollSub.unsubscribe();
+    if (this.userStatusSub) this.userStatusSub.unsubscribe();
+    if (this.scrollSub) this.scrollSub.unsubscribe();
+    if (this.fetchSub) this.fetchSub.unsubscribe();
   }
 }

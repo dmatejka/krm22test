@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
 import { ApiStatus } from 'src/app/core/models/ApiStatus';
 import { CompOrientation, CompState } from 'src/app/core/models/CompState';
 import { getDumb, User } from 'src/app/users/models/User';
@@ -6,7 +6,8 @@ import { getDumb, User } from 'src/app/users/models/User';
 @Component({
   selector: 'krm-user-tile',
   templateUrl: './user-tile.component.html',
-  styleUrls: ['./user-tile.component.scss']
+  styleUrls: ['./user-tile.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserTileComponent {
     // enums for Templates
@@ -24,7 +25,6 @@ export class UserTileComponent {
   @Input() public hover: boolean = false;
 
   // #### Setting CLASSes for STATE, STATUS and ORIENTATION of the component
-  // @HostBinding('class.state-dumb') get stateDumb() { return this.cState===CompState.Dumb; }
   @HostBinding('class.state-read') get stateRead() { return this.cState===CompState.Read; }
   // @HostBinding('class.state-add') get stateAdd() { return this.cState===CompState.Add; }
   // @HostBinding('class.state-update') get stateEdit() { return this.cState===CompState.Update; }

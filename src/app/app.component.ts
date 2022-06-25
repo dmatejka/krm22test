@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { Observable } from 'rxjs';
@@ -10,6 +10,7 @@ import { UserDetailComponent } from './users/user-detail/user-detail.component';
   selector: 'krm-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   title = 'krm22';
