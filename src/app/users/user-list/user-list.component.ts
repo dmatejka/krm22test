@@ -121,7 +121,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.observer.observe('(min-width: 500px)').subscribe((result) => {
+    this.observer.observe('(min-width: 550px)').subscribe((result) => {
       this.narrow = !result.matches;
       this.cd.detectChanges();
     });
