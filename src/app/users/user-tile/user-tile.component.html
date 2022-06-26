@@ -1,9 +1,9 @@
+<mat-progress-bar
+      *ngIf="cStatus === ApiStatusT.Loading"
+      mode="indeterminate"
+    ></mat-progress-bar>
 <mat-card class="tile" [class.hover]="hover">
   <div class="header fade-in">
-    <mat-progress-bar
-          *ngIf="cStatus === ApiStatusT.Loading"
-          mode="indeterminate"
-        ></mat-progress-bar>
     <img
       class="avatar"
       default="/assets/avatar/dumb.svg"

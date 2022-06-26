@@ -42,4 +42,8 @@ export class UserTileComponent {
 
   constructor() { }
 
+  ngOnInit() {
+    console.log('cstatus: ', this.cStatus )
+  }
+
 }

@@ -1,6 +1,11 @@
 @use "@angular/material" as mat;
 
 :host {
+  .mat-progress-bar {
+    margin-bottom: -4px;
+    opacity: 0.5;
+  }
+
   .mat-card {
     height: 100%;
     display: flex;
@@ -20,9 +25,6 @@
     .header {
       width: 33%;
       margin: -32px 0;
-      .mat-progress-bar {
-        margin-bottom: -4px;
-      }
       .avatar {
         margin-left: -52px;
         border: 4px solid #7e57c2;
