@@ -34,7 +34,7 @@ diferent login screen for landscape and portrait view
 login states 
 ## Users
 User list is responsive 
-There could be potentially a lot of users in the list comming from the API. Therfore I have decided to use CDK-virtual-scroller from angular material CDK
+For scrooll position change I have used CDK-virtual-scroller from angular material CDK.
 
 To compensate the UX for the long fetching delay I have implemented the use of dumb loading components.
 

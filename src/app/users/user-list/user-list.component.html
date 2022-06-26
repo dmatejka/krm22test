@@ -1,17 +1,17 @@
-<cdk-virtual-scroll-viewport #scroller itemSize="156" class="container">
+<cdk-virtual-scroll-viewport #scroller [itemSize]="narrow ? 140 : 100" class="container">
   <div class="wrapper">
-    <krm-user-tile
-      class="tile fade-in"
-      *ngFor="let user of users$ | async; let i = index; trackBy: trackElement"
-      [user]="user"
-      [cStatus]="
-        user.first_name === 'Dumb' ? ApiStatusT.Loading : ApiStatusT.Success
-      "
-      [cOrientation]="
-        narrow ? CompOrientationT.Landscape : CompOrientationT.Portrait
-      "
-      [hover]="listStatus !== ApiStatusT.Loading"
-    ></krm-user-tile>
+      <krm-user-tile
+        class="tile fade-in"
+        *ngFor="let user of users$ | async; let i = index; trackBy: trackElement"
+        [user]="user"
+        [cStatus]="
+          user.first_name === 'Dumb' ? ApiStatusT.Loading : ApiStatusT.Success
+        "
+        [cOrientation]="
+          narrow ? CompOrientationT.Landscape : CompOrientationT.Portrait
+        "
+        [hover]="listStatus !== ApiStatusT.Loading"
+      ></krm-user-tile>
 
     <!-- TEST DUMB COMPONENT -->
     <!-- <krm-user-tile

@@ -70,6 +70,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
   );
 
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
+  end: boolean = false;
 
   constructor(
     private ngZone: NgZone,
@@ -77,8 +78,6 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
     private observer: BreakpointObserver,
     protected usersService: UsersService
   ) {
-
-
     this.users$ = this.listPage$.pipe(
       map((lp) => lp.list),
       scan(
@@ -88,6 +87,13 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
     );
 
     this.page$ = this.listPage$.pipe(
+      tap((newListPAge) => {
+        if (newListPAge.page.page === newListPAge.page.total_pages) {
+          this.end = true;
+        } else {
+          this.end = false;
+        }
+      }),
       map((lp) => lp.page),
       filter((page) => page.page >= this.lastPage.page),
       tap((page) => (this.lastPage = page))
@@ -95,7 +101,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
 
     this.fetchSub = this.fetch$
       .pipe(
-        map(() => this.getNext(this.lastPage)),
+        map(() => (this.end ? null : this.getNext(this.lastPage))),
         filterNullish(),
         tap((nextPage) =>
           this.usersService
@@ -127,7 +133,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
   }
 
   fetchMore() {
-    this.fetch$.next(true);
+    if (!this.end) this.fetch$.next(true);
   }
 
   private generateUsers(page: Pagination): User[] {
@@ -172,10 +178,11 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
       .elementScrolled()
       .pipe(
         map(() => this.scroller.measureScrollOffset('bottom')),
+        throttleTime(200),
         pairwise(),
-        throttleTime(200)
+        filter(([y1, y2]) => (y2 < y1 && y2 < 350)),
       )
-      .subscribe(() => {
+      .subscribe((scroll) => {
         this.ngZone.run(() => {
           this.fetchMore();
         });
