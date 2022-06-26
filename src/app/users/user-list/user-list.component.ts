@@ -180,7 +180,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
         map(() => this.scroller.measureScrollOffset('bottom')),
         throttleTime(200),
         pairwise(),
-        filter(([y1, y2]) => (y2 < y1 && y2 < 350)),
+        filter(([y1, y2]) => (y2 < y1 && y2 < 550)),
       )
       .subscribe((scroll) => {
         this.ngZone.run(() => {

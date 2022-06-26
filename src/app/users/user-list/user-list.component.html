@@ -35,5 +35,8 @@
       </button>
     </ng-container>
   </div>
-  <div class="spacer"></div>
+  <div class="spacer">
+    <mat-icon *ngIf="end && listStatus !== ApiStatusT.Loading" >expand_less</mat-icon>
+
+  </div>
 </cdk-virtual-scroll-viewport>
