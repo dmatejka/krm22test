@@ -1,6 +1,5 @@
 # Krm22
-This is test project for KRM22 interview process
-It is a PWA with App-shell.
+This is test PWA with App-shell.
 
 ## (re)generate APP SHELL
 ng run krm22:app-shell:production
